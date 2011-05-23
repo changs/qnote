@@ -1,0 +1,32 @@
+<div id="left">
+  <a href='#?w=700' class='button poplight' rel='new_post'>
+    <span class='add'>New note</span></a>
+  <a href='/showall' class='button buttona'>
+    <span class='all'>All notes</span></a>
+  <a href='#?w=500' class='button poplight' rel="popup_name">
+    <span class='tags'>Tags</span></a>
+    <a href='#' class='button' onclick="document.search.submit(); return false;">
+   <span class='logout'>Search</span></a>
+  <form action="/search" method="post" accept-charset="utf-8" name="">
+    <input id="in_search" type="text" name="title" size="15">
+  </form>
+</div>
+</div>
+<div id="right">
+  <div id="header">
+    New Note
+    <div id="logo">
+      qnote
+    </div>
+  </div>
+
+<div id="form">
+<% note = note_by_id(id) %>
+
+<form action="<%= url '/edit' %>" method="post" accept-charset="utf-8">
+  <label for="title">Title</label><input type="text" name="title" class="login_form pressed" value="<%= note.title %>"><br>
+  <label for="note">Note</label><textarea name="note" rows="8" cols="80" class="login_form pressed"><%= note.content %></textarea><br>
+  <input type="hidden" name="id_n" value="<%= note.id %>">
+  <p><input type="submit" value="Save"></p>
+</form>
+</div>  

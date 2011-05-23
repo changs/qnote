@@ -1,0 +1,55 @@
+<div id="left">
+  <a href='#?w=700' class='button poplight' rel='new_post'>
+    <span class='add'>New note</span></a>
+  <a href='/showall' class='button'>
+    <span class='all'>All notes</span></a>
+  <a href='#?w=500' class='button poplight' rel="popup_name">
+    <span class='tags'>Tags</span></a>
+  <a href='/logout' class='button'>
+    <span class='logout'>Logout</span></a>
+      <a href='#' class='button' onclick="document.search.submit(); return false;">
+   <span class='search'>Search</span></a>
+  <form action="/search" method="post" accept-charset="utf-8" name="search">
+    <input id="in_search" type="text" name="title" size="15">
+  </form>
+</div>
+</div>
+<div id="right">
+  <div id="header">
+    Note: <%= @note.title[0..49] %>
+    <%= '...' if @note.title.length > 49 %>
+    <div id="logo">
+      qnote
+    </div>
+  </div>
+
+<div id="note_content">
+  <div id="note_header">
+    <% tags_note = get_tags_by_note(@note.id) %>
+    Tags: <% tags_note.each do |tag| %>
+    <a href="/tag/<%= tag.name %>" class="tag_small"><%= tag.name %></a>
+    <% end %>
+    <div class='right'>
+      <%= "Modified: " + @note.date.strftime("%D")%>
+      <a href='#?700' class='poplight' rel='form' >
+        <img src='/img/edit.png' alt='Edit note' height='16' width='16'/></a>
+        <a href='/delete/<%= @note.id %>'>
+        <img src='/img/del.png' alt='Delete note' height='16' width='16'/></a>
+  </div>
+</div>
+<div id="notec">
+  <%= nl2br @note.content %>
+</div>
+
+</div>
+
+
+<div id="form" class="popup_block">
+<form action="<%= url '/edit' %>" method="post" accept-charset="utf-8">
+  <label for="title">Title</label><input type="text" name="title" class="login_form pressed" value="<%= @note.title %>"><br>
+  <label for="note">Note</label><textarea name="note" rows="16" cols="100" class="login_form pressed"><%= @note.content %></textarea><br>
+  <input type="hidden" name="id_n" value="<%= @note.id %>">
+  <p><input type="submit" value="Save"></p>
+</form>
+</div> 
+

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title><%= "Hello #{user_name}" %></title>
+<link rel="stylesheet" href="/css/default.css" type="text/css" />
+<script type="text/javascript"
+  src="/js/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+//When you click on a link with class of poplight and the href starts with a # 
+$('a.poplight[href^=#]').click(function() {
+    var popID = $(this).attr('rel'); //Get Popup Name
+    var popURL = $(this).attr('href'); //Get Popup href to define size
+
+    //Pull Query & Variables from href URL
+    var query= popURL.split('?');
+    var dim= query[1].split('&');
+    var popWidth = dim[0].split('=')[1]; //Gets the first query string value
+
+    //Fade in the Popup and add close button
+    $('#' + popID).fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" class="close"><img src="/img/close_pop.png" class="btn_close" title="Close Window" alt="Close" /></a>');
+
+    //Define margin for center alignment (vertical   horizontal) - we add 80px to the height/width to accomodate for the padding  and border width defined in the css
+    var popMargTop = ($('#' + popID).height() + 80) / 2;
+    var popMargLeft = ($('#' + popID).width() + 80) / 2;
+
+    //Apply Margin to Popup
+    $('#' + popID).css({
+        'margin-top' : -popMargTop,
+        'margin-left' : -popMargLeft
+    });
+
+    //Fade in Background
+    $('body').append('<div id="fade"></div>'); //Add the fade layer to bottom of the body tag.
+    $('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn(); //Fade in the fade layer - .css({'filter' : 'alpha(opacity=80)'}) is used to fix the IE Bug on fading transparencies 
+
+    return false;
+});
+
+//Close Popups and Fade Layer
+$('a.close, #fade').live('click', function() { //When clicking on the close or fade layer...
+    $('#fade , .popup_block').fadeOut(function() {
+        $('#fade, a.close').remove();  //fade them both out
+    });
+    return false;
+});
+
+  });
+</script>
+</head>
+<body>
+  <div id="gradient"></div>
+<div id="body"><%= yield%>
+</div>
+<div id="popup_name" class="popup_block">
+  <h2>Tags</h2>
+  <div id="tags_div">
+     <ul>
+    <% tags = get_tags_by_user %>
+    <% tags.each do |tag| %>
+      <li class='tag'><a href="/tag/<%= tag.name %>" class='taglink'><%= tag.name %></a></li>
+    <% end %>
+  </ul>
+  </div>
+</div>
+<div id="new_post" class="popup_block">
+    <h2>New Note</h2>
+    <div id="form">
+<form action="new_note" method="post" accept-charset="utf-8">
+  <label for="title">Title</label><input type="text" name="title" class="login_form pressed"><br>
+  <label for="note">Note</label><textarea name="note" rows="8" cols="80" class="login_form pressed"></textarea><br>
+  <label for="tags">Tags</label><input type="text" name="tags"> 
+  <p><input type="submit" value="Add note"></p>
+</form>
+</div> 
+</div>
+
+</body>
+</html>
