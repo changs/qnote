@@ -13,12 +13,12 @@ configure do
   User.first_or_create(:name => "Bartek", :pass => "test")
   User.first_or_create(:name => "Paulina", :pass => "test")
   #Note.first_or_create(:title => "Test", :date => Time.now, :type => "text", :content => "LALALAL", :id_u => 1)
-  TagsToNote.first_or_create(:id_n => 1, :id_t => 1)
-  TagsToUser.first_or_create(:id_t => 1, :id_u => 1)
-  TagsToNote.first_or_create(:id_n => 1, :id_t => 2)
-  TagsToUser.first_or_create(:id_t => 2, :id_u => 1)
-  Tag.first_or_create(name: 'test')
-  Tag.first_or_create(name: 'drugi')
+  #TagsToNote.first_or_create(:id_n => 1, :id_t => 1)
+  #TagsToUser.first_or_create(:id_t => 1, :id_u => 1)
+  #TagsToNote.first_or_create(:id_n => 1, :id_t => 2)
+  #TagsToUser.first_or_create(:id_t => 2, :id_u => 1)
+  #Tag.first_or_create(name: 'test')
+  #Tag.first_or_create(name: 'drugi')
 end
 
 get '/' do

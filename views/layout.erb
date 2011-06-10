@@ -67,7 +67,7 @@ $('a.close, #fade').live('click', function() { //When clicking on the close or f
 <div id="new_post" class="popup_block">
     <h2>New Note</h2>
     <div id="form">
-<form action="new_note" method="post" accept-charset="utf-8">
+<form action="<%= url '/new_note' %>" method="post" accept-charset="utf-8">
   <label for="title">Title</label><input type="text" name="title" class="login_form pressed"><br>
   <label for="note">Note</label><textarea name="note" rows="8" cols="80" class="login_form pressed"></textarea><br>
   <label for="tags">Tags</label><input type="text" name="tags"> 
